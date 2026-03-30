@@ -10,9 +10,11 @@ https://render.com → GitHub login (Rushitamakwana)
 **2. Web Service:**
 ```
 New → Web Service → REGRET-CONSULTANCY repo
-Build: composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
-Start: php artisan serve --host=0.0.0.0 --port=$PORT
-Instance: Free
+→ Runtime: PHP 8.3 (select PHP, not Node)
+→ Root Directory: ./
+→ Build Command: `composer install --no-dev --optimize-autoloader && npm install && npm run build && php artisan config:cache && php artisan route:cache && php artisan view:cache`
+→ Start Command: `vendor/bin/heroku-php-apache2 public/`
+→ Instance Type: Free
 ```
 
 **3. PostgreSQL (Free):**
