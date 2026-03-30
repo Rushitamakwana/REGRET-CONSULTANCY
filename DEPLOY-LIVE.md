@@ -1,72 +1,61 @@
-# Step-by-Step: Free Domain पर Laravel Project Live (Same Design + Database)
+# Free Domain Deployment Options (No Code Changes)
 
-**Platform:** Railway.app (Free, Laravel Ready, Auto HTTPS)
+## Option 1: Render.com (Recommended Railway Alternative - Free PHP + Postgres)
 
-## 1. Sign Up (1 min)
+**1. Sign Up:**
 ```
-https://railway.app → Continue with GitHub (Rushitamakwana)
-```
-
-## 2. Deploy (2 min)
-```
-Dashboard → New Project → Deploy from GitHub repo
-→ Rushitamakwana/REGRET-CONSULTANCY → Deploy
-```
-**Auto Domain:** `https://regret-consultancy.railway.app`
-
-## 3. Add Database (Free MySQL)
-```
-Project → New → Database → MySQL → Add
+https://render.com → GitHub login (Rushitamakwana)
 ```
 
-## 4. Environment Variables (.env setup)
-Variables tab → Add:
+**2. Web Service:**
 ```
-APP_NAME="Regret Consultancy"
+New → Web Service → REGRET-CONSULTANCY repo
+Build: composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
+Start: php artisan serve --host=0.0.0.0 --port=$PORT
+Instance: Free
+```
+
+**3. PostgreSQL (Free):**
+```
+New → PostgreSQL → Free
+```
+
+**4. Environment Variables:**
+```
+DATABASE_URL=postgres://username:password@host:port/db (copy from Postgres → Info)
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://regret-consultancy.railway.app
-
-DB_CONNECTION=mysql
-DB_HOST=mysql.railway.internal
-DB_PORT=3306
-DB_DATABASE=railway
-DB_USERNAME=root
-DB_PASSWORD=(from Railway MySQL vars)
-DB_SSLMODE=require
-
-CACHE_DRIVER=redis
-SESSION_DRIVER=database
-QUEUE_CONNECTION=database
-
+APP_URL=https://yourapp.onrender.com
 MAIL_MAILER=log
 ```
 
-**Get DB Password:** MySQL service → Variables → Copy `MYSQL_PASSWORD`
-
-## 5. Run Migrations & Seeders (Railway Shell)
+**5. Shell (after deploy):**
 ```
-Railway Shell (CLI icon) → Run:
 php artisan migrate --force
 php artisan db:seed --class=SuperAdminSeeder
-php artisan storage:link
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-exit
 ```
 
-## 6. Live! Test
+**Domain:** https://regretconsultancy-xyz.onrender.com ✅ LIVE!
+
+## Option 2: Koyeb (Free Nano)
 ```
-✅ Home page: https://regret-consultancy.railway.app
-✅ Admin login: /login (email/password from seeder)
-✅ Contact/Portfolio forms working
-✅ Design 100% same
+koyeb.com → GitHub repo → PHP → Auto detect → Deploy
+Free MySQL add-on available
+Domain: yourapp.koyeb.app
 ```
 
-**Free Limits:** 512MB RAM, 1GB DB, unlimited traffic.
+## Option 3: Fly.io (CLI Deploy)
+```
+npm i -g flyctl
+fly launch --no-deploy
+# Edit fly.toml: primary_region = "ord", swap php artisan serve with vendor/bin/heroku-php-apache2 public/
+fly deploy
+fly postgres create
+```
 
-**Done!** Full Laravel app live with database, admin panel, forms - no issues.
+**All options: Full project live (admin/database/forms) - NO code changes needed.**
 
-**Alternative:** Render.com (similar steps).
+**Repo ready:** https://github.com/Rushitamakwana/REGRET-CONSULTANCY
+
+**Pick Render.com for easiest deploy!**
 
